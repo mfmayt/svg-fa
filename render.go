@@ -43,15 +43,15 @@ func (e *Element) Encode(encoder *xml.Encoder) error {
 	}
 	end := start.End()
 
+	var content xml.Token
+
+	content = xml.CharData(e.Content)
+	encoder.EncodeToken(content)
+
 	for _, child := range e.Children {
 		if err := child.Encode(encoder); err != nil {
 			return err
 		}
 	}
-	var content xml.Token
-
-	content = xml.CharData(e.Content)
-
-	encoder.EncodeToken(content)
 	return encoder.EncodeToken(end)
 }
