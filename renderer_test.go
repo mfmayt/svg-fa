@@ -6,7 +6,7 @@ import (
 	"github.com/mfmayt/svgparser"
 )
 
-func TestParser(t *testing.T) {
+func TestRender(t *testing.T) {
 	var testCases = []struct {
 		svg     string
 		element svgparser.Element
@@ -68,25 +68,10 @@ func TestParser(t *testing.T) {
 	}
 
 	for _, test := range testCases {
-		actual, err := parse(test.svg, false)
+		actual, err := render(&test.element)
 
-		if !(test.element.Compare(actual) && err == nil) {
-			t.Errorf("Parse: expected %v, actual %v\n", test.element, actual)
+		if !(test.svg == actual && err == nil) {
+			t.Errorf("Render: expected %v, actual %v\n", test.svg, actual)
 		}
-	}
-}
-
-func TestValidDocument(t *testing.T) {
-	svg := `
-		<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="svg-root" width="100%" height="100%" viewBox="0 0 480 360">
-			<title id="test-title">color-prop-01-b</title>
-			<desc id="test-desc">Test that viewer has the basic capability to process the color property</desc>
-			<rect id="test-frame" x="1" y="1" width="478" height="358" fill="none" stroke="#000000"/>
-		</svg>
-		`
-
-	element, err := parse(svg, true)
-	if !(element != nil && err == nil) {
-		t.Errorf("Validation: expected %v, actual %v\n", nil, err)
 	}
 }

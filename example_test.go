@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/JoshVarga/svgparser"
-	"github.com/JoshVarga/svgparser/utils"
+	"github.com/mfmayt/svgparser"
+	"github.com/mfmayt/svgparser/utils"
 )
 
 func ExampleParse() {
