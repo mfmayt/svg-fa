@@ -33,3 +33,25 @@ func (e *Element) Serialize() xml.StartElement {
 		Attr: attributes,
 	}
 }
+
+// Encode encodes the element
+func (e *Element) Encode(encoder *xml.Encoder) error {
+	start := e.Serialize()
+
+	if err := encoder.EncodeToken(start); err != nil {
+		return err
+	}
+	end := start.End()
+
+	for _, child := range e.Children {
+		if err := child.Encode(encoder); err != nil {
+			return err
+		}
+	}
+	var content xml.Token
+
+	content = xml.CharData(e.Content)
+
+	encoder.EncodeToken(content)
+	return encoder.EncodeToken(end)
+}
