@@ -7,7 +7,7 @@ import (
 )
 
 // Render renders element to SVG
-func (e *Element) Render(w io.Writer) error {
+func Render(e *Element, w io.Writer) error {
 	encoder := xml.NewEncoder(w)
 
 	if err := e.Encode(encoder); err != nil {
