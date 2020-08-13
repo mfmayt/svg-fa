@@ -19,6 +19,8 @@ func parse(svg string, validate bool) (*svgparser.Element, error) {
 	return element, err
 }
 
-func render(*svgparser.Element) (string, error) {
-	return "test", nil
+func render(elem *svgparser.Element) (string, error) {
+	// buf := new(bytes.Buffer)
+	// svg := .Re elem.Render(buf)
+	return "svg.String()", nil
 }

@@ -7,7 +7,7 @@ import (
 )
 
 // Render renders element to SVG
-func (e *Element) Render(w io.Writer) error {
+func Render(e *Element, w io.Writer) error {
 	encoder := xml.NewEncoder(w)
 
 	if err := e.Encode(encoder); err != nil {
@@ -43,15 +43,15 @@ func (e *Element) Encode(encoder *xml.Encoder) error {
 	}
 	end := start.End()
 
+	var content xml.Token
+
+	content = xml.CharData(e.Content)
+	encoder.EncodeToken(content)
+
 	for _, child := range e.Children {
 		if err := child.Encode(encoder); err != nil {
 			return err
 		}
 	}
-	var content xml.Token
-
-	content = xml.CharData(e.Content)
-
-	encoder.EncodeToken(content)
 	return encoder.EncodeToken(end)
 }

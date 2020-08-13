@@ -6,6 +6,7 @@ import (
 	"io"
 	"io/ioutil"
 	"strings"
+
 	"golang.org/x/net/html/charset"
 )
 
