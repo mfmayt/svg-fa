@@ -16,3 +16,20 @@ func (e *Element) Render(w io.Writer) error {
 
 	return encoder.Flush()
 }
+
+// Serialize serializes element
+func (e *Element) Serialize() xml.StartElement {
+	var attributes []xml.Attr
+	for name, value := range e.Attributes {
+		attr := xml.Attr{
+			Name:  xml.Name{Local: name},
+			Value: value,
+		}
+		attributes = append(attributes, attr)
+	}
+
+	return xml.StartElement{
+		Name: xml.Name{Local: e.Name},
+		Attr: attributes,
+	}
+}
