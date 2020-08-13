@@ -1,6 +1,7 @@
 package svgparser_test
 
 import (
+	"bytes"
 	"strings"
 
 	"github.com/mfmayt/svgparser"
@@ -20,7 +21,7 @@ func parse(svg string, validate bool) (*svgparser.Element, error) {
 }
 
 func render(elem *svgparser.Element) (string, error) {
-	// buf := new(bytes.Buffer)
-	// svg := .Re elem.Render(buf)
-	return "svg.String()", nil
+	buf := new(bytes.Buffer)
+	err := svgparser.Render(elem, buf)
+	return buf.String(), err
 }

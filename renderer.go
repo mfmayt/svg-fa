@@ -20,6 +20,7 @@ func Render(e *Element, w io.Writer) error {
 // Serialize serializes element
 func (e *Element) Serialize() xml.StartElement {
 	var attributes []xml.Attr
+
 	for name, value := range e.Attributes {
 		attr := xml.Attr{
 			Name:  xml.Name{Local: name},
