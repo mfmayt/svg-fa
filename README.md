@@ -14,6 +14,9 @@ Checks if the SVG input is valid according to the [W3C Recommendation](https://w
 ##### Find functionality
 Provides capability to search for SVG elements by id or element name.
 
+##### Render functionality
+Provides capability to render svgparser.Element to SVG format.
+
 ##### Path Parser
 Parsing the 'd' attribute of a path element into a structure containing all subpaths with their commands and parameters.
 
@@ -34,10 +37,25 @@ Parsing the value of a style element.
 
 		fmt.Printf("SVG width: %s", element.Attributes["width"])
 		fmt.Printf("Circle fill: %s", element.Children[0].Attributes["fill"])
-
+		
+		// change children[0]'s fill attribute
+		element.Children[0].Attributes["fill"]="green"
+		
+		// render image to writer
+		buf := new(bytes.Buffer)
+		err := svgparser.Render(element,buf)
+		if err != nil{
+		    panic(err)
+		}
+		
+		fmt.Printf(buf.String())
+		
 		// Output:
 		// SVG width: 100
 		// Circle fill: red
+		// <svg width="100" height="100">
+		//	<circle cx="50" cy="50" r="40" fill="green"></circle>
+		// </svg>
 	}
 
 ### License
